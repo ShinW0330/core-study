@@ -3,11 +3,12 @@ package study.core;
 import study.core.member.Grade;
 import study.core.member.Member;
 import study.core.member.MemberService;
-import study.core.member.MemberServiceImpl;
 
 public class MemberApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+        //MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
        Member member = new Member(1L, "memberShin", Grade.VIP);
        memberService.join(member);
 
