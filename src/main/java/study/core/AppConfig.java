@@ -1,6 +1,7 @@
 package study.core;
 
-import study.core.discount.FixDiscountPolicy;
+import study.core.discount.DiscountPolicy;
+import study.core.discount.RateDiscountPolicy;
 import study.core.member.MemberService;
 import study.core.member.MemberServiceImpl;
 import study.core.member.MemoryMemberRepository;
@@ -9,11 +10,20 @@ import study.core.order.OrderServiceImpl;
 
 public class AppConfig {
     public MemberService memberService(){
-        return new MemberServiceImpl(new MemoryMemberRepository());
+        return new MemberServiceImpl(memberRepository());
+    }
+
+    private static MemoryMemberRepository memberRepository() {
+        return new MemoryMemberRepository();
     }
 
     public OrderService orderService(){
-        return new OrderServiceImpl(new FixDiscountPolicy(), new MemoryMemberRepository());
+        return new OrderServiceImpl(discountPolicy(), memberRepository());
     }
 
+    public DiscountPolicy discountPolicy(){
+        //return new FixDiscountPolicy();
+        return new RateDiscountPolicy();
+
+    }
 }
